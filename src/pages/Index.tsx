@@ -23,6 +23,7 @@ const Index = () => {
   const handleIconClick = (icon: IconData) => {
     setSelectedIcon(icon);
     setModalOpen(true);
+    trackIconView(icon.name);
   };
 
   const handleSearch = (e: React.FormEvent) => {
