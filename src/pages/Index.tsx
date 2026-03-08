@@ -10,6 +10,7 @@ import { Footer } from "@/components/Footer";
 import { IconCard } from "@/components/IconCard";
 import { IconDetailModal } from "@/components/IconDetailModal";
 import { categories, icons, searchIcons, type IconData } from "@/data/icons";
+import { trackIconView, trackCategoryView, trackSearch } from "@/lib/analytics";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
