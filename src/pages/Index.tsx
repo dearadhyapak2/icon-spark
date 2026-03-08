@@ -29,6 +29,7 @@ const Index = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      trackSearch(searchQuery, filteredIcons.length);
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
