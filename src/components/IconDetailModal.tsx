@@ -57,6 +57,7 @@ export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalPro
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["favorite", icon?.name] });
       queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      trackFavoriteToggle(icon?.name || "", isFavorited ? "remove" : "add");
       toast(isFavorited ? "Removed from favorites" : "Added to favorites");
     },
   });
