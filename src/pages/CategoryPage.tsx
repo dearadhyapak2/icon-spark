@@ -25,6 +25,12 @@ export default function CategoryPage() {
       )
     : allIcons;
 
+  useEffect(() => {
+    if (category) {
+      trackCategoryView(slug || "", category.name);
+    }
+  }, [slug, category]);
+
   if (!category) {
     return (
       <div className="min-h-screen bg-background">

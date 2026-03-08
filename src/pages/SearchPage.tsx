@@ -19,6 +19,12 @@ export default function SearchPage() {
 
   const results = searchIcons(query);
 
+  useEffect(() => {
+    if (query) {
+      trackSearch(query, results.length);
+    }
+  }, [query, results.length]);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setSearchParams({ q: inputValue });
