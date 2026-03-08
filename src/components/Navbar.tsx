@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { Download, Heart, LogOut, User } from "lucide-react";
+import { Heart, LogOut, User } from "lucide-react";
+import logo from "@/assets/logo.jpg";
 import {
   DropdownMenu,
   DropdownMenuContent,
