@@ -12,6 +12,10 @@ import { Download, Heart, HeartOff } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const sizes = [16, 32, 64, 128, 256, 512];
+const presetColors = [
+  "#000000", "#ffffff", "#ef4444", "#f97316", "#eab308",
+  "#22c55e", "#3b82f6", "#8b5cf6", "#ec4899", "#6b7280",
+];
 
 interface IconDetailModalProps {
   icon: IconData | null;
