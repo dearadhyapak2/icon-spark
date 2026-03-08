@@ -2,6 +2,7 @@ import { icons as lucideIcons } from "lucide-react";
 import { createElement, useState } from "react";
 import { IconData } from "@/data/icons";
 import { downloadIconAsPng } from "@/lib/download-icon";
+import { trackIconDownload, trackFavoriteToggle, trackIconView } from "@/lib/analytics";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
