@@ -25,6 +25,7 @@ interface IconDetailModalProps {
 
 export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalProps) {
   const [selectedSize, setSelectedSize] = useState(128);
+  const [selectedColor, setSelectedColor] = useState("#000000");
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -61,7 +62,7 @@ export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalPro
 
   const handleDownload = async () => {
     if (!icon) return;
-    await downloadIconAsPng(icon.name, selectedSize);
+    await downloadIconAsPng(icon.name, selectedSize, selectedColor);
     if (user) {
       await supabase.from("downloads").insert({
         user_id: user.id,
