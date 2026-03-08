@@ -12,6 +12,10 @@ import { Download, Heart, HeartOff } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const sizes = [16, 32, 64, 128, 256, 512];
+const presetColors = [
+  "#000000", "#ffffff", "#ef4444", "#f97316", "#eab308",
+  "#22c55e", "#3b82f6", "#8b5cf6", "#ec4899", "#6b7280",
+];
 
 interface IconDetailModalProps {
   icon: IconData | null;
@@ -21,6 +25,7 @@ interface IconDetailModalProps {
 
 export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalProps) {
   const [selectedSize, setSelectedSize] = useState(128);
+  const [selectedColor, setSelectedColor] = useState("#000000");
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -57,7 +62,7 @@ export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalPro
 
   const handleDownload = async () => {
     if (!icon) return;
-    await downloadIconAsPng(icon.name, selectedSize);
+    await downloadIconAsPng(icon.name, selectedSize, selectedColor);
     if (user) {
       await supabase.from("downloads").insert({
         user_id: user.id,
@@ -83,17 +88,41 @@ export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalPro
         <div className="flex flex-col items-center gap-6 py-4">
           {/* Preview */}
           <div className="flex h-40 w-40 items-center justify-center rounded-2xl bg-muted">
-            {createElement(LucideIcon, { size: 80, className: "text-foreground" })}
+            {createElement(LucideIcon, { size: 80, style: { color: selectedColor } })}
           </div>
 
           {/* Size previews */}
           <div className="flex items-end gap-4">
             {[16, 32, 48, 64].map((s) => (
               <div key={s} className="flex flex-col items-center gap-1">
-                {createElement(LucideIcon, { size: s, className: "text-foreground" })}
+                {createElement(LucideIcon, { size: s, style: { color: selectedColor } })}
                 <span className="text-[10px] text-muted-foreground">{s}px</span>
               </div>
             ))}
+          </div>
+
+          {/* Color picker */}
+          <div className="w-full">
+            <p className="mb-2 text-sm font-medium">Icon color</p>
+            <div className="flex items-center gap-2 flex-wrap">
+              {presetColors.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setSelectedColor(c)}
+                  className={`h-7 w-7 rounded-full border-2 transition-transform ${selectedColor === c ? "scale-110 border-primary" : "border-transparent hover:scale-105"}`}
+                  style={{ backgroundColor: c, boxShadow: c === "#ffffff" ? "inset 0 0 0 1px hsl(var(--border))" : undefined }}
+                />
+              ))}
+              <label className="flex h-7 items-center gap-1.5 rounded-full border bg-background px-2 text-xs cursor-pointer">
+                <input
+                  type="color"
+                  value={selectedColor}
+                  onChange={(e) => setSelectedColor(e.target.value)}
+                  className="h-4 w-4 cursor-pointer rounded border-0 p-0"
+                />
+                Custom
+              </label>
+            </div>
           </div>
 
           {/* Tags */}

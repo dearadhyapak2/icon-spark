@@ -4,7 +4,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 export async function downloadIconAsPng(
   iconName: string,
-  size: number = 64
+  size: number = 64,
+  color: string = "#000000"
 ): Promise<void> {
   const IconComponent = lucideIcons[iconName as keyof typeof lucideIcons];
   if (!IconComponent) return;
@@ -13,7 +14,7 @@ export async function downloadIconAsPng(
     createElement(IconComponent, {
       size,
       strokeWidth: 2,
-      color: "#000000",
+      color,
     })
   );
 
