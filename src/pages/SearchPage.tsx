@@ -68,6 +68,7 @@ export default function SearchPage() {
                 onClick={(i) => {
                   setSelectedIcon(i);
                   setModalOpen(true);
+                  trackIconView(i.name);
                 }}
               />
             ))}

@@ -76,6 +76,7 @@ export default function CategoryPage() {
               onClick={(i) => {
                 setSelectedIcon(i);
                 setModalOpen(true);
+                trackIconView(i.name);
               }}
             />
           ))}
