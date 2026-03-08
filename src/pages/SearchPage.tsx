@@ -4,6 +4,7 @@ import { Search, ChevronLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { IconCard } from "@/components/IconCard";
 import { IconDetailModal } from "@/components/IconDetailModal";
 import { searchIcons, type IconData } from "@/data/icons";
@@ -67,7 +68,8 @@ export default function SearchPage() {
         )}
       </div>
 
-      <IconDetailModal icon={selectedIcon} open={modalOpen} onOpenChange={setModalOpen} />
-    </div>
-  );
-}
+       <IconDetailModal icon={selectedIcon} open={modalOpen} onOpenChange={setModalOpen} />
+       <Footer />
+     </div>
+   );
+ }

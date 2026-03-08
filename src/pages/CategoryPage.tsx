@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Search, ChevronLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { IconCard } from "@/components/IconCard";
 import { IconDetailModal } from "@/components/IconDetailModal";
 import { getIconsByCategory, getCategoryBySlug, type IconData } from "@/data/icons";
@@ -74,7 +75,8 @@ export default function CategoryPage() {
         </div>
       </div>
 
-      <IconDetailModal icon={selectedIcon} open={modalOpen} onOpenChange={setModalOpen} />
-    </div>
-  );
-}
+       <IconDetailModal icon={selectedIcon} open={modalOpen} onOpenChange={setModalOpen} />
+       <Footer />
+     </div>
+   );
+ }
