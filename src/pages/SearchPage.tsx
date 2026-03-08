@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Search, ChevronLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { IconCard } from "@/components/IconCard";
 import { IconDetailModal } from "@/components/IconDetailModal";
 import { searchIcons, type IconData } from "@/data/icons";
+import { trackSearch, trackIconView } from "@/lib/analytics";
 
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
