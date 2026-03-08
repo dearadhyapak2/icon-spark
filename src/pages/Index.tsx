@@ -74,7 +74,10 @@ const Index = () => {
             return (
               <button
                 key={cat.slug}
-                onClick={() => navigate(`/category/${cat.slug}`)}
+                onClick={() => {
+                  trackCategoryView(cat.slug, cat.name);
+                  navigate(`/category/${cat.slug}`);
+                }}
                 className="group flex flex-col items-center gap-2 rounded-xl border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-md"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted transition-colors group-hover:bg-primary/10">
