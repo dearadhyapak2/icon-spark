@@ -2,6 +2,7 @@ import { icons as lucideIcons } from "lucide-react";
 import { createElement, useState } from "react";
 import { IconData } from "@/data/icons";
 import { downloadIconAsPng } from "@/lib/download-icon";
+import { trackIconDownload, trackFavoriteToggle, trackIconView } from "@/lib/analytics";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
@@ -56,6 +57,7 @@ export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalPro
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["favorite", icon?.name] });
       queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      trackFavoriteToggle(icon?.name || "", isFavorited ? "remove" : "add");
       toast(isFavorited ? "Removed from favorites" : "Added to favorites");
     },
   });
@@ -63,6 +65,7 @@ export function IconDetailModal({ icon, open, onOpenChange }: IconDetailModalPro
   const handleDownload = async () => {
     if (!icon) return;
     await downloadIconAsPng(icon.name, selectedSize, selectedColor);
+    trackIconDownload(icon.name, selectedSize, selectedColor);
     if (user) {
       await supabase.from("downloads").insert({
         user_id: user.id,

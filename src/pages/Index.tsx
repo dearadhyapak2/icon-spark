@@ -10,6 +10,7 @@ import { Footer } from "@/components/Footer";
 import { IconCard } from "@/components/IconCard";
 import { IconDetailModal } from "@/components/IconDetailModal";
 import { categories, icons, searchIcons, type IconData } from "@/data/icons";
+import { trackIconView, trackCategoryView, trackSearch } from "@/lib/analytics";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,11 +23,13 @@ const Index = () => {
   const handleIconClick = (icon: IconData) => {
     setSelectedIcon(icon);
     setModalOpen(true);
+    trackIconView(icon.name);
   };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      trackSearch(searchQuery, filteredIcons.length);
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
@@ -71,7 +74,10 @@ const Index = () => {
             return (
               <button
                 key={cat.slug}
-                onClick={() => navigate(`/category/${cat.slug}`)}
+                onClick={() => {
+                  trackCategoryView(cat.slug, cat.name);
+                  navigate(`/category/${cat.slug}`);
+                }}
                 className="group flex flex-col items-center gap-2 rounded-xl border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-md"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted transition-colors group-hover:bg-primary/10">

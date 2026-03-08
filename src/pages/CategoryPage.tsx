@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Search, ChevronLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { IconCard } from "@/components/IconCard";
 import { IconDetailModal } from "@/components/IconDetailModal";
 import { getIconsByCategory, getCategoryBySlug, type IconData } from "@/data/icons";
+import { trackCategoryView, trackIconView } from "@/lib/analytics";
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -23,6 +24,12 @@ export default function CategoryPage() {
           i.tags.some((t) => t.includes(searchQuery.toLowerCase()))
       )
     : allIcons;
+
+  useEffect(() => {
+    if (category) {
+      trackCategoryView(slug || "", category.name);
+    }
+  }, [slug, category]);
 
   if (!category) {
     return (
@@ -69,6 +76,7 @@ export default function CategoryPage() {
               onClick={(i) => {
                 setSelectedIcon(i);
                 setModalOpen(true);
+                trackIconView(i.name);
               }}
             />
           ))}
